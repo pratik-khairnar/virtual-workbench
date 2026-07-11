@@ -1,8 +1,9 @@
+@import '../styles/variables.css';
+
 .dashboard-page {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  text-align: left;
 }
 
 .page-header {
@@ -10,209 +11,116 @@
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
-  border-bottom: 1px solid #eaeded;
+  border-bottom: 1px solid var(--aws-border-color);
   padding-bottom: 1rem;
 }
 
 .page-title {
   font-size: 1.75rem;
   font-weight: 600;
-  color: #232f3e;
+  color: var(--aws-text-dark);
   margin: 0 0 0.25rem 0;
   letter-spacing: -0.01em;
 }
 
 .page-subtitle {
-  color: #545b64;
+  color: var(--aws-text-grey);
   font-size: 0.9rem;
   margin: 0;
 }
 
-/* AWS Orange primary button */
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
   height: 32px;
   padding: 0 1.25rem;
-  background-color: #ff9900;
+  background-color: var(--aws-orange);
   color: #16191f;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
-  border: 1px solid #ff9900;
-  border-radius: 2px;
+  border: 1px solid var(--aws-orange);
+  border-radius: var(--border-radius);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  transition: all 0.1s ease;
+  transition: var(--transition-fast);
+  cursor: pointer;
 }
 
 .btn-primary:hover {
-  background-color: #ec7211;
-  border-color: #ec7211;
+  background-color: var(--aws-orange-hover);
+  border-color: var(--aws-orange-hover);
   text-decoration: none;
 }
 
-/* AWS Console grid layout */
+.btn-primary:active {
+  background-color: var(--aws-orange-active);
+}
+
+.btn-reset {
+  height: 32px;
+  padding: 0 1rem;
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-border-hover);
+  color: var(--aws-text-grey);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-reset:hover {
+  background-color: var(--aws-light-bg);
+  color: var(--aws-text-dark);
+}
+
+/* Responsive workspace card grid */
 .workspace-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.25rem;
 }
 
-/* AWS Container card styles */
-.workspace-card {
-  background-color: #ffffff;
-  border: 1px solid #eaeded;
-  border-radius: 2px; /* AWS console uses 2px-4px radius */
-  padding: 1.25rem;
+/* Empty state design */
+.empty-state {
+  background-color: var(--aws-white);
+  border: 1px dashed var(--aws-border-hover);
+  border-radius: var(--border-radius);
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
+  max-width: 600px;
+  margin: 2rem auto;
 }
 
-.workspace-card:hover {
-  border-color: #aab7b8;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-}
-
-/* AWS style badges */
-.provider-badge {
-  font-size: 0.75rem;
+.empty-title {
+  font-size: 1.35rem;
   font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 2px;
-}
-
-.provider-badge.aws {
-  background-color: #ff9900;
-  color: #16191f;
-}
-
-.provider-badge.gcp {
-  background-color: #4285f4;
-  color: #ffffff;
-}
-
-/* Status styling matching AWS console */
-.status-indicator {
-  font-size: 0.8rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.status-indicator::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.status-indicator.running {
-  color: #1d8102; /* AWS running green */
-}
-
-.status-indicator.running::before {
-  background-color: #1d8102;
-}
-
-.status-indicator.stopped {
-  color: #d13212; /* AWS alert/stopped red */
-}
-
-.status-indicator.stopped::before {
-  background-color: #d13212;
-}
-
-.workspace-name {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #232f3e;
+  color: var(--aws-text-dark);
   margin: 0;
-  border-bottom: 1px solid #eaeded;
-  padding-bottom: 0.5rem;
 }
 
-.workspace-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.detail-item {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-}
-
-.detail-label {
-  color: #545b64;
-}
-
-.detail-value {
-  color: #232f3e;
-  font-weight: 600;
-}
-
-/* AWS Secondary and action buttons */
-.card-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: auto;
-}
-
-.btn-secondary {
-  flex: 1;
-  height: 32px;
-  background-color: #ffffff;
-  border: 1px solid #545b64;
-  color: #545b64;
-  font-weight: 600;
-  font-size: 0.85rem;
-  border-radius: 2px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.1s ease;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #f2f3f3;
-  color: #16191f;
-  border-color: #16191f;
-}
-
-.btn-secondary:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.btn-icon {
-  background-color: #ffffff;
-  border: 1px solid #aab7b8;
-  border-radius: 2px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.1s ease;
-}
-
-.btn-icon:hover {
-  background-color: #f2f3f3;
-  border-color: #545b64;
+.empty-description {
+  font-size: 0.9rem;
+  color: var(--aws-text-grey);
+  max-width: 400px;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
 }
 
 @media (max-width: 640px) {
@@ -220,8 +128,11 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  .btn-primary {
+  .header-buttons {
     width: 100%;
+  }
+  .btn-primary, .btn-reset {
+    flex: 1;
     justify-content: center;
   }
 }

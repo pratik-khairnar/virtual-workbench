@@ -1,3 +1,5 @@
+@import '../styles/variables.css';
+
 .create-page {
   display: flex;
   flex-direction: column;
@@ -7,17 +9,17 @@
   margin: 0 auto;
 }
 
-/* Breadcrumbs mimicking AWS Console */
+/* Breadcrumbs styled like AWS Console */
 .page-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 0.35rem;
   font-size: 0.8rem;
-  color: #545b64;
+  color: var(--aws-text-grey);
 }
 
 .breadcrumb-link {
-  color: #0066cc;
+  color: var(--aws-blue-link);
   text-decoration: none;
 }
 
@@ -26,37 +28,37 @@
 }
 
 .breadcrumb-separator {
-  color: #879596;
+  color: var(--aws-border-hover);
 }
 
 .breadcrumb-current {
-  color: #545b64;
+  color: var(--aws-text-grey);
 }
 
 .page-title {
   font-size: 1.75rem;
   font-weight: 600;
-  color: #232f3e;
+  color: var(--aws-text-dark);
   margin: 0 0 0.25rem 0;
   letter-spacing: -0.01em;
 }
 
 .page-subtitle {
-  color: #545b64;
+  color: var(--aws-text-grey);
   font-size: 0.9rem;
   margin: 0;
   line-height: 1.4;
 }
 
-/* AWS Console form container */
+/* Form Styles */
 .create-form {
-  background-color: #ffffff;
-  border: 1px solid #eaeded;
-  border-radius: 2px;
-  padding: 1.5rem;
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -69,149 +71,135 @@
 .form-label {
   font-size: 0.875rem;
   font-weight: 700;
-  color: #232f3e;
+  color: var(--aws-text-dark);
 }
 
-/* Form input fields & select dropdowns */
+.required-star {
+  color: var(--status-stopped);
+}
+
+/* Form inputs & selections */
 .form-input,
 .form-select {
   height: 32px;
   padding: 0 0.75rem;
-  background-color: #ffffff;
-  border: 1px solid #aab7b8;
-  border-radius: 2px;
-  color: #232f3e;
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-border-hover);
+  border-radius: var(--border-radius);
+  color: var(--aws-text-dark);
   font-size: 0.875rem;
   font-family: inherit;
-  transition: border-color 0.1s ease;
+  transition: var(--transition-fast);
   box-sizing: border-box;
 }
 
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: #0066cc; /* AWS Active Blue border */
-  box-shadow: 0 0 0 1px #0066cc;
+  border-color: var(--aws-blue-link);
+  box-shadow: 0 0 0 1px var(--aws-blue-link);
+}
+
+.form-input.input-error {
+  border-color: var(--status-stopped);
+}
+
+.form-input.input-error:focus {
+  box-shadow: 0 0 0 1px var(--status-stopped);
 }
 
 .form-input::placeholder {
   color: #aab7b8;
 }
 
-/* Provider Options with AWS branding styles */
-.provider-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+/* Text guidelines and warnings */
+.helper-text {
+  font-size: 0.75rem;
+  color: var(--aws-text-grey);
 }
 
-.provider-radio {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem;
-  background-color: #ffffff;
-  border: 1px solid #eaeded;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.1s ease;
-}
-
-.provider-radio:hover {
-  background-color: #fafafa;
-  border-color: #aab7b8;
-}
-
-.provider-radio.active {
-  border-color: #ff9900; /* AWS Orange Active border */
-  background-color: rgba(255, 153, 0, 0.04);
-}
-
-.provider-radio input[type="radio"] {
-  accent-color: #ff9900;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.radio-label {
-  font-size: 0.875rem;
+.error-text {
+  font-size: 0.75rem;
+  color: var(--status-stopped);
   font-weight: 600;
-  color: #232f3e;
 }
 
-/* Form Grid */
+/* Dynamic columns grid */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .form-grid .form-select {
   width: 100%;
 }
 
-/* Form Actions */
+/* Actions footer */
 .form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eaeded;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--aws-border-color);
 }
 
-/* AWS Console styled button types */
 .btn-cancel {
   height: 32px;
   padding: 0 1.25rem;
-  background-color: #ffffff;
-  color: #545b64;
-  border: 1px solid #545b64;
-  border-radius: 2px;
+  background-color: var(--aws-white);
+  color: var(--aws-text-grey);
+  border: 1px solid var(--aws-text-grey);
+  border-radius: var(--border-radius);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
   display: inline-flex;
   align-items: center;
-  transition: all 0.1s ease;
+  transition: var(--transition-fast);
 }
 
 .btn-cancel:hover {
-  background-color: #f2f3f3;
-  color: #16191f;
-  border-color: #16191f;
+  background-color: var(--aws-light-bg);
+  color: var(--aws-text-dark);
+  border-color: var(--aws-text-dark);
   text-decoration: none;
 }
 
 .btn-submit {
   height: 32px;
   padding: 0 1.25rem;
-  background-color: #ff9900;
+  background-color: var(--aws-orange);
   color: #16191f;
-  border: 1px solid #ff9900;
-  border-radius: 2px;
+  border: 1px solid var(--aws-orange);
+  border-radius: var(--border-radius);
   font-weight: 600;
   font-size: 0.875rem;
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  transition: all 0.1s ease;
+  transition: var(--transition-fast);
 }
 
-.btn-submit:hover {
-  background-color: #ec7211;
-  border-color: #ec7211;
+.btn-submit:hover:not(:disabled) {
+  background-color: var(--aws-orange-hover);
+  border-color: var(--aws-orange-hover);
 }
 
-.btn-submit:active {
-  background-color: #d85d00;
+.btn-submit:active:not(:disabled) {
+  background-color: var(--aws-orange-active);
+}
+
+.btn-submit:disabled {
+  background-color: #eaeded;
+  border-color: #d5dbdb;
+  color: #aab7b8;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 @media (max-width: 640px) {
   .create-form {
-    padding: 1rem;
-  }
-  .provider-options {
-    grid-template-columns: 1fr;
+    padding: 1.25rem 1rem;
   }
   .form-grid {
     grid-template-columns: 1fr;

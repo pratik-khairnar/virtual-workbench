@@ -1,0 +1,40 @@
+/* Centralized AWS Management Console inspired theme variables */
+:root {
+  /* Colors */
+  --aws-squid-ink: #232f3e;
+  --aws-dark-blue: #161b22;
+  --aws-orange: #ff9900;
+  --aws-orange-hover: #ec7211;
+  --aws-orange-active: #d85d00;
+  --aws-blue-link: #0066cc;
+  --aws-blue-hover: #0044bb;
+  --aws-light-bg: #f2f3f3;
+  --aws-card-bg: #ffffff;
+  --aws-border-color: #eaeded;
+  --aws-border-hover: #aab7b8;
+  --aws-text-dark: #232f3e;
+  --aws-text-grey: #545b64;
+  --aws-white: #ffffff;
+
+  /* Status Colors */
+  --status-running: #1d8102;
+  --status-running-bg: rgba(29, 129, 2, 0.08);
+  --status-stopped: #d13212;
+  --status-stopped-bg: rgba(209, 50, 18, 0.08);
+  --status-pending: #ff9900;
+  --status-pending-bg: rgba(255, 153, 0, 0.08);
+
+  /* Provider Badges */
+  --badge-aws-bg: #ff9900;
+  --badge-aws-text: #16191f;
+  --badge-azure-bg: #008ad7;
+  --badge-azure-text: #ffffff;
+  --badge-gcp-bg: #4285f4;
+  --badge-gcp-text: #ffffff;
+
+  /* Fonts & Sizing */
+  --font-family: "Amazon Ember", "Helvetica Neue", Roboto, Arial, sans-serif;
+  --border-radius: 2px;
+  --transition-fast: all 0.1s ease;
+  --transition-medium: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}

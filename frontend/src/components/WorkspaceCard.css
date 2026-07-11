@@ -1,0 +1,185 @@
+@import '../styles/variables.css';
+
+.workspace-card {
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-border-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  transition: var(--transition-fast);
+  text-align: left;
+}
+
+.workspace-card:hover {
+  border-color: var(--aws-border-hover);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Provider badges */
+.provider-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--border-radius);
+  text-transform: uppercase;
+}
+
+.provider-badge.aws {
+  background-color: var(--badge-aws-bg);
+  color: var(--badge-aws-text);
+}
+
+.provider-badge.azure {
+  background-color: var(--badge-azure-bg);
+  color: var(--badge-azure-text);
+}
+
+.provider-badge.gcp {
+  background-color: var(--badge-gcp-bg);
+  color: var(--badge-gcp-text);
+}
+
+/* Status badges with dots */
+.status-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--border-radius);
+  text-transform: capitalize;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.running {
+  color: var(--status-running);
+  background-color: var(--status-running-bg);
+}
+.status-badge.running .status-dot {
+  background-color: var(--status-running);
+}
+
+.status-badge.stopped {
+  color: var(--status-stopped);
+  background-color: var(--status-stopped-bg);
+}
+.status-badge.stopped .status-dot {
+  background-color: var(--status-stopped);
+}
+
+.status-badge.provisioning,
+.status-badge.pending {
+  color: var(--status-pending);
+  background-color: var(--status-pending-bg);
+}
+.status-badge.provisioning .status-dot,
+.status-badge.pending .status-dot {
+  background-color: var(--status-pending);
+}
+
+/* Workspace details */
+.workspace-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--aws-text-dark);
+  margin: 0;
+  border-bottom: 1px solid var(--aws-border-color);
+  padding-bottom: 0.5rem;
+}
+
+.workspace-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metadata-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.metadata-label {
+  color: var(--aws-text-grey);
+}
+
+.metadata-value {
+  color: var(--aws-text-dark);
+  font-weight: 600;
+}
+
+.code-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  background-color: var(--aws-light-bg);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/* Action buttons */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.btn-connect {
+  flex: 1;
+  height: 32px;
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-text-grey);
+  color: var(--aws-text-grey);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.btn-connect:hover:not(:disabled) {
+  background-color: var(--aws-light-bg);
+  color: var(--aws-text-dark);
+  border-color: var(--aws-text-dark);
+}
+
+.btn-connect:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-terminate {
+  background-color: var(--aws-white);
+  border: 1px solid var(--aws-border-hover);
+  border-radius: var(--border-radius);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-terminate:hover {
+  background-color: var(--status-stopped-bg);
+  border-color: var(--status-stopped);
+}

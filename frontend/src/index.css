@@ -1,4 +1,6 @@
-/* AWS Management Console styling reset */
+@import './styles/variables.css';
+
+/* Global reset styles for AWS Workbench */
 html,
 body,
 #root {
@@ -7,9 +9,9 @@ body,
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #f2f3f3; /* AWS console light grey background */
-  color: #232f3e; /* AWS Squid Ink dark text */
-  font-family: "Amazon Ember", "Helvetica Neue", Roboto, Arial, sans-serif;
+  background-color: var(--aws-light-bg);
+  color: var(--aws-text-dark);
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -20,12 +22,21 @@ body,
   box-sizing: inherit;
 }
 
-/* AWS Link styling */
+/* Link styling */
 a {
-  color: #0066cc;
+  color: var(--aws-blue-link);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+  color: var(--aws-blue-hover);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--aws-blue-link);
+  outline-offset: 1px;
 }

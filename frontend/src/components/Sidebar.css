@@ -1,0 +1,78 @@
+@import '../styles/variables.css';
+
+.sidebar {
+  width: 240px;
+  background-color: var(--aws-white);
+  border-right: 1px solid var(--aws-border-color);
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: calc(100vh - 50px);
+  position: sticky;
+  top: 50px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.sidebar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-group.separator {
+  border-top: 1px solid var(--aws-border-color);
+  padding-top: 1rem;
+}
+
+.sidebar-group-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--aws-text-grey);
+  padding: 0 1.25rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin: 2px 0;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  color: var(--aws-text-dark);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: var(--transition-fast);
+}
+
+.sidebar-link:hover {
+  background-color: var(--aws-light-bg);
+  color: var(--aws-text-dark);
+  text-decoration: none;
+}
+
+.sidebar-link-icon {
+  font-size: 1rem;
+}
+
+/* Active NavLink style matching AWS console navigation */
+.sidebar-link.active {
+  background-color: var(--aws-light-bg);
+  border-left-color: var(--aws-orange-hover);
+  font-weight: 700;
+  color: var(--aws-text-dark);
+}
