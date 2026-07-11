@@ -58,6 +58,12 @@ class Workspace(Base):
         nullable=False
     )
 
+    provider = Column(
+    String(20),
+    nullable=False,
+    default="aws"
+    )
+
     status = Column(
         Enum(WorkspaceStatus),
         default=WorkspaceStatus.CREATING,
