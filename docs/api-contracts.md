@@ -183,7 +183,8 @@ Creates a new workspace.
 ```json
 {
     "name": "ADAS Workspace",
-    "image_id": "uuid"
+    "image_id": "uuid",
+    "provider":"aws"
 }
 ```
 
@@ -218,9 +219,11 @@ Returns details of a workspace.
     "id": "uuid",
     "name": "ADAS Workspace",
     "status": "RUNNING",
-    "workspace_url": "https://workspace.example.com",
+    "workspace_url": null,
     "image_name": "Ubuntu 24.04",
-    "created_at": "2026-07-10T13:00:00"
+    "image_id": "uuid",
+    "created_at": "2026-07-10T13:00:00",
+    "provider":"aws"
 }
 ```
 
@@ -238,7 +241,9 @@ Updates workspace metadata.
 
 ```json
 {
-    "name": "ADAS Development Workspace"
+    "name": "ADAS Development Workspace",
+    "image_id": "uuid",
+    "provider": "aws"
 }
 ```
 
@@ -246,7 +251,10 @@ Updates workspace metadata.
 
 ```json
 {
-    "message": "Workspace updated successfully"
+    "id": "uuid",
+    "status": "CREATING",
+    "provider": "aws",
+    "message": "Workspace provisioning initiated"
 }
 ```
 
@@ -262,6 +270,7 @@ Deletes a workspace.
 
 ```json
 {
+    "status":"DELETING",
     "message": "Workspace deleted successfully"
 }
 ```
