@@ -20,3 +20,7 @@ class UserResponse(BaseSchema):
     email: EmailStr
     role: str
     created_at: datetime
+
+class TokenResponse(BaseSchema):
+    access_token: str
+    token_type: str
