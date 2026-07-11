@@ -1,0 +1,227 @@
+.create-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Breadcrumbs mimicking AWS Console */
+.page-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #545b64;
+}
+
+.breadcrumb-link {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #879596;
+}
+
+.breadcrumb-current {
+  color: #545b64;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #232f3e;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+  color: #545b64;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* AWS Console form container */
+.create-form {
+  background-color: #ffffff;
+  border: 1px solid #eaeded;
+  border-radius: 2px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #232f3e;
+}
+
+/* Form input fields & select dropdowns */
+.form-input,
+.form-select {
+  height: 32px;
+  padding: 0 0.75rem;
+  background-color: #ffffff;
+  border: 1px solid #aab7b8;
+  border-radius: 2px;
+  color: #232f3e;
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color 0.1s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #0066cc; /* AWS Active Blue border */
+  box-shadow: 0 0 0 1px #0066cc;
+}
+
+.form-input::placeholder {
+  color: #aab7b8;
+}
+
+/* Provider Options with AWS branding styles */
+.provider-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.provider-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background-color: #ffffff;
+  border: 1px solid #eaeded;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.provider-radio:hover {
+  background-color: #fafafa;
+  border-color: #aab7b8;
+}
+
+.provider-radio.active {
+  border-color: #ff9900; /* AWS Orange Active border */
+  background-color: rgba(255, 153, 0, 0.04);
+}
+
+.provider-radio input[type="radio"] {
+  accent-color: #ff9900;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.radio-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #232f3e;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-grid .form-select {
+  width: 100%;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaeded;
+}
+
+/* AWS Console styled button types */
+.btn-cancel {
+  height: 32px;
+  padding: 0 1.25rem;
+  background-color: #ffffff;
+  color: #545b64;
+  border: 1px solid #545b64;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.1s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #f2f3f3;
+  color: #16191f;
+  border-color: #16191f;
+  text-decoration: none;
+}
+
+.btn-submit {
+  height: 32px;
+  padding: 0 1.25rem;
+  background-color: #ff9900;
+  color: #16191f;
+  border: 1px solid #ff9900;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+}
+
+.btn-submit:hover {
+  background-color: #ec7211;
+  border-color: #ec7211;
+}
+
+.btn-submit:active {
+  background-color: #d85d00;
+}
+
+@media (max-width: 640px) {
+  .create-form {
+    padding: 1rem;
+  }
+  .provider-options {
+    grid-template-columns: 1fr;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  .btn-submit,
+  .btn-cancel {
+    justify-content: center;
+    width: 100%;
+  }
+}
