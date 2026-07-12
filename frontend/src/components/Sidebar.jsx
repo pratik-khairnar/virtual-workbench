@@ -14,7 +14,7 @@ function Sidebar() {
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
               end
             >
-              <span className="sidebar-link-icon">📊</span>
+              <span className="sidebar-bullet"></span>
               Dashboard
             </NavLink>
           </li>
@@ -23,7 +23,7 @@ function Sidebar() {
               to="/workspaces/new" 
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
             >
-              <span className="sidebar-link-icon">🚀</span>
+              <span className="sidebar-bullet"></span>
               Create Workspace
             </NavLink>
           </li>
@@ -34,15 +34,15 @@ function Sidebar() {
         <h2 className="sidebar-group-title">Documentation</h2>
         <ul className="sidebar-list">
           <li className="sidebar-item">
-            <a href="https://docs.aws.amazon.com/" target="_blank" rel="noopener noreferrer" className="sidebar-link">
-              <span className="sidebar-link-icon">📖</span>
-              AWS Documentation
+            <a href="#" onClick={(e) => { e.preventDefault(); alert("Reference documentation is currently offline."); }} className="sidebar-link">
+              <span className="sidebar-bullet"></span>
+              Reference Docs
             </a>
           </li>
           <li className="sidebar-item">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="sidebar-link">
-              <span className="sidebar-link-icon">💻</span>
-              GitHub Repo
+            <a href="#" onClick={(e) => { e.preventDefault(); alert("Repository link is unavailable."); }} className="sidebar-link">
+              <span className="sidebar-bullet"></span>
+              Repository
             </a>
           </li>
         </ul>
@@ -52,3 +52,4 @@ function Sidebar() {
 }
 
 export default Sidebar;
+

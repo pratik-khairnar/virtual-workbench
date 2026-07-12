@@ -9,17 +9,17 @@
   margin: 0 auto;
 }
 
-/* Breadcrumbs styled like AWS Console */
+/* Breadcrumbs styled like Management Console */
 .page-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 0.35rem;
   font-size: 0.8rem;
-  color: var(--aws-text-grey);
+  color: var(--portal-text-grey);
 }
 
 .breadcrumb-link {
-  color: var(--aws-blue-link);
+  color: var(--portal-blue);
   text-decoration: none;
 }
 
@@ -28,38 +28,39 @@
 }
 
 .breadcrumb-separator {
-  color: var(--aws-border-hover);
+  color: var(--portal-border-hover);
 }
 
 .breadcrumb-current {
-  color: var(--aws-text-grey);
+  color: var(--portal-text-grey);
 }
 
 .page-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--aws-text-dark);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--portal-text-dark);
   margin: 0 0 0.25rem 0;
   letter-spacing: -0.01em;
 }
 
 .page-subtitle {
-  color: var(--aws-text-grey);
-  font-size: 0.9rem;
+  color: var(--portal-text-grey);
+  font-size: 0.85rem;
   margin: 0;
   line-height: 1.4;
 }
 
 /* Form Styles */
 .create-form {
-  background-color: var(--aws-white);
-  border: 1px solid var(--aws-border-color);
+  background-color: var(--portal-white);
+  border: 1px solid var(--portal-border-color);
+  border-top: 3px solid var(--portal-blue); /* Classic top accent border */
   border-radius: var(--border-radius);
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
 .form-group {
@@ -69,9 +70,9 @@
 }
 
 .form-label {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--aws-text-dark);
+  color: var(--portal-text-dark);
 }
 
 .required-star {
@@ -81,13 +82,13 @@
 /* Form inputs & selections */
 .form-input,
 .form-select {
-  height: 32px;
-  padding: 0 0.75rem;
-  background-color: var(--aws-white);
-  border: 1px solid var(--aws-border-hover);
+  height: 30px;
+  padding: 0 0.5rem;
+  background-color: var(--portal-white);
+  border: 1px solid var(--portal-border-color);
   border-radius: var(--border-radius);
-  color: var(--aws-text-dark);
-  font-size: 0.875rem;
+  color: var(--portal-text-dark);
+  font-size: 0.85rem;
   font-family: inherit;
   transition: var(--transition-fast);
   box-sizing: border-box;
@@ -96,8 +97,7 @@
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: var(--aws-blue-link);
-  box-shadow: 0 0 0 1px var(--aws-blue-link);
+  border-color: var(--portal-blue);
 }
 
 .form-input.input-error {
@@ -105,7 +105,7 @@
 }
 
 .form-input.input-error:focus {
-  box-shadow: 0 0 0 1px var(--status-stopped);
+  outline: 1px solid var(--status-stopped);
 }
 
 .form-input::placeholder {
@@ -115,7 +115,7 @@
 /* Text guidelines and warnings */
 .helper-text {
   font-size: 0.75rem;
-  color: var(--aws-text-grey);
+  color: var(--portal-text-grey);
 }
 
 .error-text {
@@ -141,52 +141,52 @@
   justify-content: flex-end;
   gap: 0.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--aws-border-color);
+  border-top: 1px solid var(--portal-border-color);
 }
 
 .btn-cancel {
-  height: 32px;
+  height: 30px;
   padding: 0 1.25rem;
-  background-color: var(--aws-white);
-  color: var(--aws-text-grey);
-  border: 1px solid var(--aws-text-grey);
+  background-color: var(--portal-white);
+  color: var(--portal-text-grey);
+  border: 1px solid var(--portal-border-color);
   border-radius: var(--border-radius);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   display: inline-flex;
   align-items: center;
   transition: var(--transition-fast);
 }
 
 .btn-cancel:hover {
-  background-color: var(--aws-light-bg);
-  color: var(--aws-text-dark);
-  border-color: var(--aws-text-dark);
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
+  border-color: var(--portal-border-hover);
   text-decoration: none;
 }
 
 .btn-submit {
-  height: 32px;
+  height: 30px;
   padding: 0 1.25rem;
-  background-color: var(--aws-orange);
-  color: #16191f;
-  border: 1px solid var(--aws-orange);
+  background-color: var(--portal-blue);
+  color: var(--portal-white);
+  border: 1px solid var(--portal-blue-hover);
   border-radius: var(--border-radius);
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: bold;
+  font-size: 0.8rem;
   cursor: pointer;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   transition: var(--transition-fast);
 }
 
 .btn-submit:hover:not(:disabled) {
-  background-color: var(--aws-orange-hover);
-  border-color: var(--aws-orange-hover);
+  background-color: var(--portal-blue-hover);
+  border-color: var(--portal-blue-hover);
 }
 
 .btn-submit:active:not(:disabled) {
-  background-color: var(--aws-orange-active);
+  background-color: var(--portal-blue-active);
 }
 
 .btn-submit:disabled {
@@ -213,3 +213,4 @@
     width: 100%;
   }
 }
+

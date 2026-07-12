@@ -2,15 +2,15 @@
 
 .sidebar {
   width: 240px;
-  background-color: var(--aws-white);
-  border-right: 1px solid var(--aws-border-color);
+  background-color: var(--portal-white);
+  border-right: 1px solid var(--portal-border-color);
   padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 48px);
   position: sticky;
-  top: 50px;
+  top: 48px;
   box-sizing: border-box;
   text-align: left;
 }
@@ -22,7 +22,7 @@
 }
 
 .sidebar-group.separator {
-  border-top: 1px solid var(--aws-border-color);
+  border-top: 1px solid var(--portal-border-color);
   padding-top: 1rem;
 }
 
@@ -30,7 +30,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--aws-text-grey);
+  color: var(--portal-text-grey);
   padding: 0 1.25rem;
   margin: 0;
   font-weight: 700;
@@ -51,8 +51,8 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 1.25rem;
-  color: var(--aws-text-dark);
-  font-size: 0.875rem;
+  color: var(--portal-text-dark);
+  font-size: 0.85rem;
   font-weight: 400;
   text-decoration: none;
   border-left: 3px solid transparent;
@@ -60,19 +60,32 @@
 }
 
 .sidebar-link:hover {
-  background-color: var(--aws-light-bg);
-  color: var(--aws-text-dark);
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
   text-decoration: none;
 }
 
-.sidebar-link-icon {
-  font-size: 1rem;
+.sidebar-bullet {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background-color: var(--portal-text-grey);
+  border-radius: 0; /* Sharp bullet */
 }
 
-/* Active NavLink style matching AWS console navigation */
-.sidebar-link.active {
-  background-color: var(--aws-light-bg);
-  border-left-color: var(--aws-orange-hover);
-  font-weight: 700;
-  color: var(--aws-text-dark);
+.sidebar-link:hover .sidebar-bullet {
+  background-color: var(--portal-text-dark);
 }
+
+/* Active style */
+.sidebar-link.active {
+  background-color: var(--portal-menu-bg);
+  border-left-color: var(--portal-blue);
+  font-weight: 700;
+  color: var(--portal-blue);
+}
+
+.sidebar-link.active .sidebar-bullet {
+  background-color: var(--portal-blue);
+}
+

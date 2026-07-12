@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getImages, createWorkspace } from '../services/workspaceService';
 import './WorkspaceCreate.css';
 
 function WorkspaceCreate() {
@@ -7,30 +8,44 @@ function WorkspaceCreate() {
   const [formData, setFormData] = useState({
     name: '',
     provider: '',
-    baseImage: '',
-    instanceSize: '',
+    baseImage: '', // Will hold image_id UUID
+    instanceSize: 'medium', // Default
   });
 
-  const [formErrors, setFormErrors] = useState({
-    name: '',
-  });
-
+  const [images, setImages] = useState([]);
+  const [loadingImages, setLoadingImages] = useState(true);
+  const [formErrors, setFormErrors] = useState({ name: '' });
   const [isFormValid, setIsFormValid] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  // Validate form entries on state updates
+  // Fetch available images on mount
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await getImages();
+        setImages(data);
+      } catch (err) {
+        console.error('Failed to load images:', err);
+      } finally {
+        setLoadingImages(false);
+      }
+    };
+    fetchImages();
+  }, []);
+
+  // Validate form
   useEffect(() => {
     const isNameValid = formData.name.trim().length >= 3 && /^[a-zA-Z0-9-]+$/.test(formData.name);
     const hasProvider = formData.provider !== '';
     const hasImage = formData.baseImage !== '';
     const hasInstance = formData.instanceSize !== '';
 
-    setIsFormValid(isNameValid && hasProvider && hasImage && hasInstance);
-  }, [formData]);
+    setIsFormValid(isNameValid && hasProvider && hasImage && hasInstance && !submitting);
+  }, [formData, submitting]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    // Add validation feedback on typing
     if (name === 'name') {
       if (value.trim().length > 0 && value.trim().length < 3) {
         setFormErrors((prev) => ({ ...prev, name: 'Workspace name must be at least 3 characters.' }));
@@ -47,23 +62,29 @@ function WorkspaceCreate() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
 
-    // Log the created payload
-    console.log('Provisioning new cloud workspace payload:', formData);
-    
-    alert(
-      `Workspace provisioning request submitted!\n\n` +
-      `Name: ${formData.name}\n` +
-      `Provider: ${formData.provider.toUpperCase()}\n` +
-      `Image: ${formData.baseImage}\n` +
-      `Instance: ${formData.instanceSize}`
-    );
+    try {
+      setSubmitting(true);
+      const payload = {
+        name: formData.name,
+        image_id: formData.baseImage,
+        provider: formData.provider
+      };
 
-    // Redirect to dashboard page
-    navigate('/');
+      console.log('Sending create workspace request:', payload);
+      await createWorkspace(payload);
+      
+      alert('Workspace provisioning request submitted successfully!');
+      navigate('/');
+    } catch (err) {
+      console.error('Error creating workspace:', err);
+      alert(err.response?.data?.detail || 'Failed to provision workspace. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -90,10 +111,11 @@ function WorkspaceCreate() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="e.g. frontend-sandbox"
+            placeholder="e.g. dev-environment"
             className={`form-input ${formErrors.name ? 'input-error' : ''}`}
             required
             maxLength={30}
+            disabled={submitting}
           />
           {formErrors.name ? (
             <span className="error-text">{formErrors.name}</span>
@@ -113,11 +135,12 @@ function WorkspaceCreate() {
             onChange={handleChange}
             className="form-select"
             required
+            disabled={submitting}
           >
-            <option value="" disabled>-- Select a cloud partner --</option>
-            <option value="aws">Amazon Web Services (AWS)</option>
-            <option value="azure">Microsoft Azure</option>
-            <option value="gcp">Google Cloud Platform (GCP)</option>
+            <option value="" disabled>-- Select cloud infrastructure provider --</option>
+            <option value="aws">Cloud Provider Alpha</option>
+            <option value="azure">Cloud Provider Beta</option>
+            <option value="gcp">Cloud Provider Gamma</option>
           </select>
         </div>
 
@@ -133,12 +156,16 @@ function WorkspaceCreate() {
               onChange={handleChange}
               className="form-select"
               required
+              disabled={loadingImages || submitting}
             >
-              <option value="" disabled>-- Select base system image --</option>
-              <option value="ubuntu-22.04">Ubuntu Server 22.04 LTS (Node/Python pre-configured)</option>
-              <option value="amazon-linux-2023">Amazon Linux 2023 (AWS-CLI optimized)</option>
-              <option value="debian-12">Debian 12 Bookworm (Minimal clean environment)</option>
-              <option value="windows-server-2022">Windows Server 2022 (IIS/PowerShell base)</option>
+              <option value="" disabled>
+                {loadingImages ? 'Loading images...' : '-- Select base system image --'}
+              </option>
+              {images.map((img) => (
+                <option key={img.id} value={img.id}>
+                  {img.name} ({img.os} v{img.version})
+                </option>
+              ))}
             </select>
           </div>
 
@@ -153,12 +180,12 @@ function WorkspaceCreate() {
               onChange={handleChange}
               className="form-select"
               required
+              disabled={submitting}
             >
-              <option value="" disabled>-- Select machine footprint --</option>
               <option value="small">Micro Sandbox (1 vCPU, 2GB RAM)</option>
               <option value="medium">Standard Workspace (2 vCPU, 4GB RAM)</option>
               <option value="large">Compute Heavy (4 vCPU, 16GB RAM)</option>
-              <option value="gpu">GPU Optimized Sandbox (8 vCPU, 32GB RAM + NVIDIA T4)</option>
+              <option value="gpu">GPU Optimized Sandbox (8 vCPU, 32GB RAM + GPU)</option>
             </select>
           </div>
         </div>
@@ -170,9 +197,9 @@ function WorkspaceCreate() {
           <button 
             type="submit" 
             className="btn-submit" 
-            disabled={!isFormValid}
+            disabled={!isFormValid || submitting}
           >
-            Provision Machine
+            {submitting ? 'Provisioning...' : 'Provision Machine'}
           </button>
         </div>
       </form>

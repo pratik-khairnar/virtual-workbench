@@ -1,6 +1,6 @@
 @import './styles/variables.css';
 
-/* Global reset styles for AWS Workbench */
+/* Global reset styles for Management Console Portal */
 html,
 body,
 #root {
@@ -9,8 +9,8 @@ body,
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: var(--aws-light-bg);
-  color: var(--aws-text-dark);
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,19 +24,19 @@ body,
 
 /* Link styling */
 a {
-  color: var(--aws-blue-link);
+  color: var(--portal-blue);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
-  color: var(--aws-blue-hover);
+  color: var(--portal-blue-hover);
 }
 
 /* Focus styles for accessibility */
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--aws-blue-link);
+  outline: 2px solid var(--portal-blue);
   outline-offset: 1px;
-}
+}
