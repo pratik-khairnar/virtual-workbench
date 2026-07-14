@@ -87,7 +87,7 @@ export const getWorkspaces = async () => {
       provider: 'Docker',
       image_name: ws.catalogImageName || ws.dockerImage || 'code-server',
       image_id: ws.catalogEntryId,
-      workspace_url: ws.accessUrl || null,
+      workspace_url: ws.accessUrl ? ws.accessUrl.replace('localhost', window.location.hostname) : null,
       dockerImage: ws.dockerImage || null,
       created_at: ws.created_at,
       updated_at: ws.updated_at,
