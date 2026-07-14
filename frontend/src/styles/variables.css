@@ -1,0 +1,42 @@
+/* Centralized generic old-style portal theme variables */
+:root {
+  /* Colors */
+  --portal-navy: #1a365d;         /* Header background */
+  --portal-navy-hover: #2a4365;   /* Header buttons hover */
+  --portal-blue: #2b6cb0;         /* Primary buttons & link color */
+  --portal-blue-hover: #2c5282;
+  --portal-blue-active: #2a4365;
+  --portal-light-bg: #f7fafc;     /* General body background */
+  --portal-card-bg: #ffffff;      /* Dashboard cards & panels */
+  --portal-border-color: #cbd5e0;  /* Standard borders */
+  --portal-border-hover: #a0aec0;  /* Input hover borders */
+  --portal-text-dark: #2d3748;    /* Main font color */
+  --portal-text-grey: #4a5568;    /* Subheadings and labels */
+  --portal-white: #ffffff;
+  --portal-menu-bg: #ebf8ff;      /* Active menu background */
+
+  /* Status Colors */
+  --status-running: #276749;
+  --status-running-bg: #f0fff4;
+  --status-stopped: #9b2c2c;
+  --status-stopped-bg: #fff5f5;
+  --status-pending: #9c4221;
+  --status-pending-bg: #fffaf0;
+
+  /* Provider Badges */
+  --badge-generic-bg: #edf2f7;
+  --badge-generic-text: #2d3748;
+  --badge-aws-bg: #fff3e0;
+  --badge-aws-text: #e65100;
+  --badge-azure-bg: #e3f2fd;
+  --badge-azure-text: #1565c0;
+  --badge-gcp-bg: #e8f5e9;
+  --badge-gcp-text: #2e7d32;
+
+  /* Fonts & Sizing */
+  --font-family: "Tahoma", "Verdana", "Arial", sans-serif;
+  --border-radius: 0px; /* Classic sharp web portal borders */
+  --transition-fast: all 0.05s ease;
+  --transition-medium: all 0.15s ease-out;
+}
+

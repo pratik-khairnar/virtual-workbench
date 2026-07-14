@@ -1,0 +1,21 @@
+{
+  "name": "virtual-workbench-services",
+  "version": "1.0.0",
+  "description": "Open-source Virtual Workbench — Image Service & Catalog Service",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "express": "^4.21.0",
+    "js-yaml": "^4.1.0",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^11.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

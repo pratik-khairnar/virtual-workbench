@@ -1,0 +1,42 @@
+@import './styles/variables.css';
+
+/* Global reset styles for Management Console Portal */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Link styling */
+a {
+  color: var(--portal-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--portal-blue-hover);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--portal-blue);
+  outline-offset: 1px;
+}

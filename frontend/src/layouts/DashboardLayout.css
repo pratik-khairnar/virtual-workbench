@@ -1,0 +1,108 @@
+@import '../styles/variables.css';
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
+}
+
+/* Header style - simple old-school solid portal banner */
+.layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 48px;
+  background-color: var(--portal-navy);
+  border-bottom: 3px solid var(--portal-blue);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 12px;
+  height: 12px;
+  background-color: var(--portal-blue);
+  border: 1px solid var(--portal-white);
+}
+
+.logo-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--portal-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.logo-text::after {
+  content: ' console';
+  font-weight: normal;
+  color: var(--portal-border-color);
+  font-size: 0.8rem;
+  text-transform: lowercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-profile {
+  color: var(--portal-white);
+  font-size: 0.8rem;
+}
+
+.btn-logout {
+  padding: 0.3rem 0.6rem;
+  background-color: transparent;
+  color: var(--portal-white);
+  border: 1px solid var(--portal-border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-family: var(--font-family);
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-logout:hover {
+  background-color: var(--portal-navy-hover);
+  border-color: var(--portal-white);
+}
+
+/* Sidebar and Main body panel */
+.layout-body {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 48px);
+  overflow: hidden;
+}
+
+.layout-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .layout-body {
+    flex-direction: column;
+  }
+  .layout-content {
+    padding: 1rem;
+  }
+}
+

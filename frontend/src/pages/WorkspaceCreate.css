@@ -1,0 +1,216 @@
+@import '../styles/variables.css';
+
+.create-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Breadcrumbs styled like Management Console */
+.page-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--portal-text-grey);
+}
+
+.breadcrumb-link {
+  color: var(--portal-blue);
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: var(--portal-border-hover);
+}
+
+.breadcrumb-current {
+  color: var(--portal-text-grey);
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--portal-text-dark);
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+  color: var(--portal-text-grey);
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Form Styles */
+.create-form {
+  background-color: var(--portal-white);
+  border: 1px solid var(--portal-border-color);
+  border-top: 3px solid var(--portal-blue); /* Classic top accent border */
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--portal-text-dark);
+}
+
+.required-star {
+  color: var(--status-stopped);
+}
+
+/* Form inputs & selections */
+.form-input,
+.form-select {
+  height: 30px;
+  padding: 0 0.5rem;
+  background-color: var(--portal-white);
+  border: 1px solid var(--portal-border-color);
+  border-radius: var(--border-radius);
+  color: var(--portal-text-dark);
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--portal-blue);
+}
+
+.form-input.input-error {
+  border-color: var(--status-stopped);
+}
+
+.form-input.input-error:focus {
+  outline: 1px solid var(--status-stopped);
+}
+
+.form-input::placeholder {
+  color: #aab7b8;
+}
+
+/* Text guidelines and warnings */
+.helper-text {
+  font-size: 0.75rem;
+  color: var(--portal-text-grey);
+}
+
+.error-text {
+  font-size: 0.75rem;
+  color: var(--status-stopped);
+  font-weight: 600;
+}
+
+/* Dynamic columns grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-grid .form-select {
+  width: 100%;
+}
+
+/* Actions footer */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--portal-border-color);
+}
+
+.btn-cancel {
+  height: 30px;
+  padding: 0 1.25rem;
+  background-color: var(--portal-white);
+  color: var(--portal-text-grey);
+  border: 1px solid var(--portal-border-color);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  transition: var(--transition-fast);
+}
+
+.btn-cancel:hover {
+  background-color: var(--portal-light-bg);
+  color: var(--portal-text-dark);
+  border-color: var(--portal-border-hover);
+  text-decoration: none;
+}
+
+.btn-submit {
+  height: 30px;
+  padding: 0 1.25rem;
+  background-color: var(--portal-blue);
+  color: var(--portal-white);
+  border: 1px solid var(--portal-blue-hover);
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  transition: var(--transition-fast);
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: var(--portal-blue-hover);
+  border-color: var(--portal-blue-hover);
+}
+
+.btn-submit:active:not(:disabled) {
+  background-color: var(--portal-blue-active);
+}
+
+.btn-submit:disabled {
+  background-color: #eaeded;
+  border-color: #d5dbdb;
+  color: #aab7b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .create-form {
+    padding: 1.25rem 1rem;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  .btn-submit,
+  .btn-cancel {
+    justify-content: center;
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,36 @@
+# ─── Dependencies ──────────────────────────────────────────────────────
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+
+# ─── Build Output ──────────────────────────────────────────────────────
+dist/
+build/
+*.tsbuildinfo
+
+# ─── Environment & Secrets ─────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Runtime Data ──────────────────────────────────────────────────────
+backend/data/*.json
+backend/data/images/
+backend/data/catalog/
+
+# ─── IDE / Editor ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── OS Files ──────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ─── Logs ──────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
