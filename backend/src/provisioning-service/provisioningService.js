@@ -137,7 +137,9 @@ function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerP
       { encoding: 'utf-8', stdio: 'pipe', timeout: 60000 }
     ).trim();
 
-    const accessUrl = `http://localhost:${port}`;
+    const isHttps = image.includes('linuxserver/webtop') || image.includes('linuxserver/code-server') || internalPort === 8443 || internalPort === 3001;
+    const protocol = isHttps ? 'https' : 'http';
+    const accessUrl = `${protocol}://localhost:${port}`;
 
     db.updateWorkspace(id, {
       status: 'running',

@@ -9,7 +9,7 @@ export const FALLBACK_IMAGES = [
     os: "Ubuntu",
     description: "Full Ubuntu Desktop VM in browser — KDE environment",
     dockerImage: "lscr.io/linuxserver/webtop:ubuntu-kde",
-    containerPort: 3000,
+    containerPort: 3001,
   },
   {
     id: "22222222-2222-2222-2222-222222222222",
@@ -18,7 +18,7 @@ export const FALLBACK_IMAGES = [
     os: "Cloud Linux",
     description: "Full Linux desktop in browser — Ubuntu XFCE with GUI",
     dockerImage: "linuxserver/webtop:ubuntu-xfce",
-    containerPort: 3000,
+    containerPort: 3001,
   },
   {
     id: "33333333-3333-3333-3333-333333333333",
