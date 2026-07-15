@@ -5,7 +5,10 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "install:python": "pip install -r requirements.txt",
+    "start:python": "uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "dev:python": "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -31,30 +31,23 @@ export const FALLBACK_IMAGES = [
   }
 ];
 
-// ─── Auth (client-side session — Node.js backend has no auth) ─────────
+// ─── Auth (Using FastAPI Python Backend) ─────────
 
 export const login = async (email, password) => {
-  // Simulate login with local session since the Node.js backend has no auth
-  const userData = {
-    id: 'local-user',
-    username: email.split('@')[0],
-    email: email,
-    role: 'USER',
-    created_at: new Date().toISOString(),
-  };
+  const response = await api.post('/users/login', { email, password });
+  const userData = response.data;
   localStorage.setItem('user', JSON.stringify(userData));
+  // The backend might return a token in the future or within userData.
+  // For now, store the user object.
+  if (userData.access_token) {
+    localStorage.setItem('token', userData.access_token);
+  }
   return userData;
 };
 
 export const register = async (username, email, password) => {
-  // Simulate registration — store locally
-  const userData = {
-    id: 'local-user',
-    username: username,
-    email: email,
-    role: 'USER',
-    created_at: new Date().toISOString(),
-  };
+  const response = await api.post('/users/register', { username, email, password });
+  const userData = response.data;
   return userData;
 };
 

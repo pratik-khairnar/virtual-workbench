@@ -30,14 +30,14 @@ router.get('/docker', (req, res) => {
 // ─── Create workspace ────────────────────────────────────────────────
 
 router.post('/', express.json(), (req, res) => {
-  const { name, catalogEntryId, userId, dockerImage, containerPort } = req.body;
+  const { id, name, catalogEntryId, userId, dockerImage, containerPort } = req.body;
 
   if (!name) {
     return res.status(400).json({ success: false, error: '"name" is required' });
   }
 
   try {
-    const workspace = provisioningService.createWorkspace({ name, catalogEntryId, userId, dockerImage, containerPort });
+    const workspace = provisioningService.createWorkspace({ id, name, catalogEntryId, userId, dockerImage, containerPort });
 
     if (workspace.status === 'failed') {
       return res.status(500).json({ success: false, workspace });

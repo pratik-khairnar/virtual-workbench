@@ -4,12 +4,14 @@
   "private": true,
   "description": "Virtual Workbench — cloud workspace platform",
   "scripts": {
-    "dev": "concurrently --names backend,frontend --prefix-colors cyan,magenta \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently --names node,python,react --prefix-colors cyan,yellow,magenta \"npm run dev:node\" \"npm run dev:python\" \"npm run dev:frontend\"",
+    "dev:node": "cd backend && npm run dev",
+    "dev:python": "cd backend && npm run dev:python",
     "dev:frontend": "cd frontend && npm run dev",
-    "start:backend": "cd backend && npm start",
+    "start:node": "cd backend && npm start",
+    "start:python": "cd backend && npm run start:python",
     "build:frontend": "cd frontend && npm run build",
-    "install:all": "cd backend && npm install && cd ../frontend && npm install"
+    "install:all": "cd backend && npm install && npm run install:python && cd ../frontend && npm install"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"

@@ -55,9 +55,9 @@ function getNextPort() {
  *  - linuxserver/webtop:* (Full desktop, port 3000, no password)
  *  - Any custom image
  */
-function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerPort }) {
-  const id = crypto.randomUUID();
-  const containerName = `workspace-${name}-${id.substring(0, 8)}`;
+function createWorkspace({ id, name, catalogEntryId, userId, dockerImage, containerPort }) {
+  const workspaceId = id || crypto.randomUUID();
+  const containerName = `workspace-${name}-${workspaceId.substring(0, 8)}`;
   const port = getNextPort();
 
   // Resolve Docker image and internal port
@@ -68,7 +68,7 @@ function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerP
   const catalogEntry = catalogEntryId ? db.getCatalogEntryById(catalogEntryId) : null;
 
   const workspace = {
-    id,
+    id: workspaceId,
     name: name || 'my-workspace',
     containerName,
     catalogEntryId: catalogEntryId || null,
@@ -87,17 +87,17 @@ function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerP
   if (!isDockerAvailable()) {
     // Simulation mode — no Docker installed
     console.log(`[Provisioning] Docker not available — running in simulation mode`);
-    db.updateWorkspace(id, {
+    db.updateWorkspace(workspaceId, {
       status: 'running',
       accessUrl: `http://localhost:${port} (simulated — install Docker for real workspaces)`,
-      containerId: `sim-${id.substring(0, 12)}`,
+      containerId: `sim-${workspaceId.substring(0, 12)}`,
     });
 
     return {
       ...workspace,
       status: 'running',
       accessUrl: `http://localhost:${port} (simulated)`,
-      containerId: `sim-${id.substring(0, 12)}`,
+      containerId: `sim-${workspaceId.substring(0, 12)}`,
       simulated: true,
     };
   }
@@ -141,7 +141,7 @@ function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerP
     const protocol = isHttps ? 'https' : 'http';
     const accessUrl = `${protocol}://localhost:${port}`;
 
-    db.updateWorkspace(id, {
+    db.updateWorkspace(workspaceId, {
       status: 'running',
       accessUrl,
       containerId,
@@ -163,7 +163,7 @@ function createWorkspace({ name, catalogEntryId, userId, dockerImage, containerP
   } catch (err) {
     const errorMsg = err.stderr || err.message;
     console.error(`[Provisioning] Failed to create workspace:`, errorMsg);
-    db.updateWorkspace(id, { status: 'failed', error: errorMsg });
+    db.updateWorkspace(workspaceId, { status: 'failed', error: errorMsg });
     redAlert('provisioning', `Failed to create workspace "${name}"`, { error: errorMsg });
     return { ...workspace, status: 'failed', error: errorMsg };
   }
