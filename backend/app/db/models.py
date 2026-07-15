@@ -2,8 +2,16 @@ import uuid
 import enum
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, ForeignKey, Text, Enum
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import (
+    Column,
+    String,
+    DateTime,
+    ForeignKey,
+    Text,
+    Enum,
+)
+from sqlalchemy.dialects.postgresql import UUID, ARRAY
+
 from sqlalchemy.orm import relationship
 
 from app.db.database import Base
@@ -22,10 +30,24 @@ class User(Base):
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    role = Column(String(20), default="USER")
+    role = Column(
+    String(20),
+    nullable=False,
+    default="DEVELOPER"
+    )
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    workspaces = relationship("Workspace", back_populates="owner")
+    owned_workspaces = relationship(
+    "Workspace",
+    foreign_keys="Workspace.owner_id",
+    back_populates="owner"
+    )
+
+    assigned_workspaces = relationship(
+    "Workspace",
+    foreign_keys="Workspace.assigned_to",
+    back_populates="developer"
+    )
 
 class Image(Base):
     __tablename__ = "images"
@@ -52,6 +74,12 @@ class Workspace(Base):
         nullable=False
     )
 
+    assigned_to = Column(
+    UUID(as_uuid=True),
+    ForeignKey("users.id"),
+    nullable=False
+    )
+    
     image_id = Column(
         UUID(as_uuid=True),
         ForeignKey("images.id"),
@@ -62,6 +90,11 @@ class Workspace(Base):
     String(20),
     nullable=False,
     default="aws"
+    )
+
+    selected_tools = Column(
+    ARRAY(String),
+    nullable=True
     )
 
     status = Column(
@@ -79,5 +112,16 @@ class Workspace(Base):
         onupdate=datetime.utcnow
     )
 
-    owner = relationship("User", back_populates="workspaces")
+    owner = relationship(
+    "User",
+    foreign_keys=[owner_id],
+    back_populates="owned_workspaces"
+    )
+
+    developer = relationship(
+    "User",
+    foreign_keys=[assigned_to],
+    back_populates="assigned_workspaces"
+    )
+    
     image = relationship("Image", back_populates="workspaces")

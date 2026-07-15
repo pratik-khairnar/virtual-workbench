@@ -6,8 +6,10 @@ from app.db.models import WorkspaceStatus
 
 class WorkspaceCreate(BaseSchema):
     name: str
+    developer_id: UUID
     image_id: UUID
     provider: str
+    selected_tools: list[str]
 
 class WorkspaceUpdate(BaseSchema):
     name: str
@@ -15,12 +17,13 @@ class WorkspaceUpdate(BaseSchema):
 class WorkspaceResponse(BaseSchema):
     id: UUID
     name: str
-    #owner_id: UUID
     image_id: UUID
     image_name: str
+    developer_id: UUID
+    provider: str
+    selected_tools: list[str]
     status: WorkspaceStatus
     workspace_url: str | None
-    provider: str
     created_at: datetime
     updated_at: datetime
 
