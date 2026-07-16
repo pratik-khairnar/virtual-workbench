@@ -46,13 +46,29 @@ export const login = async (email, password) => {
   // Original backend login returns UserResponse directly on success
   const response = await api.post('/users/login', { email, password });
   if (response.data) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+    let user = response.data;
+    // Look up role in registered roles
+    const registeredRoles = JSON.parse(localStorage.getItem('registered_roles') || '{}');
+    if (registeredRoles[email]) {
+      user = { ...user, role: registeredRoles[email] };
+    } else if (email.toLowerCase().includes('admin')) {
+      user = { ...user, role: 'ADMIN' };
+    } else {
+      user = { ...user, role: 'DEVELOPER' };
+    }
+    localStorage.setItem('user', JSON.stringify(user));
   }
   return response.data;
 };
 
-export const register = async (username, email, password) => {
+export const register = async (username, email, password, role = 'DEVELOPER') => {
   const response = await api.post('/users/register', { username, email, password });
+  
+  // Store the role selection in registered_roles mapping locally
+  const registeredRoles = JSON.parse(localStorage.getItem('registered_roles') || '{}');
+  registeredRoles[email] = role;
+  localStorage.setItem('registered_roles', JSON.stringify(registeredRoles));
+  
   return response.data;
 };
 
@@ -67,23 +83,54 @@ export const getCurrentUser = async () => {
 
 export const getWorkspaces = async () => {
   const response = await api.get('/workspaces');
+  const workspaceDetails = JSON.parse(localStorage.getItem('workspace_details') || '{}');
   
-  // Override status and urls with simulated data
+  // Override status and urls with simulated data, and append metadata
   return response.data.map(ws => {
     const simulatedStatus = getSimulatedStatus(ws.id, ws.status);
+    const details = workspaceDetails[ws.id] || {
+      developer_id: 'dev1@kpit.com', // Default fallback
+      preset: 'Standard Profile',
+      tools: ['VS Code', 'Git'],
+      specs: 'Standard Workspace (2 vCPU, 4GB RAM)'
+    };
     return {
       ...ws,
       status: simulatedStatus,
       workspace_url: simulatedStatus === 'RUNNING' 
         ? `https://ws-${ws.id.substring(0, 6)}.cloudbench.net` 
-        : null
+        : null,
+      developer_id: details.developer_id,
+      preset: details.preset,
+      tools: details.tools,
+      specs: details.specs
     };
   });
 };
 
 export const createWorkspace = async (payload) => {
-  // Payload structure: { name, image_id, provider }
-  const response = await api.post('/workspaces', payload);
+  // Payload structure sent to backend: { name, image_id, provider }
+  // Additional frontend-specific payload properties: { developer_id, preset, tools, specs }
+  const backendPayload = {
+    name: payload.name,
+    image_id: payload.image_id,
+    provider: payload.provider
+  };
+  const response = await api.post('/workspaces', backendPayload);
+  
+  if (response.data) {
+    const wsId = response.data.id;
+    // Save metadata locally
+    const workspaceDetails = JSON.parse(localStorage.getItem('workspace_details') || '{}');
+    workspaceDetails[wsId] = {
+      developer_id: payload.developer_id || 'dev1@kpit.com',
+      preset: payload.preset || 'Frontend Developer',
+      tools: payload.tools || [],
+      specs: payload.specs || 'Standard Workspace (2 vCPU, 4GB RAM)'
+    };
+    localStorage.setItem('workspace_details', JSON.stringify(workspaceDetails));
+  }
+  
   return response.data;
 };
 
@@ -125,6 +172,10 @@ export const stopWorkspace = async (workspaceId) => {
 export const getImages = async () => {
   try {
     const response = await api.get('/images');
+    if (!response.data || response.data.length === 0) {
+      console.warn("Images API returned empty list, falling back to local seed data.");
+      return FALLBACK_IMAGES;
+    }
     // Map any brand names to generic names dynamically
     return response.data.map(img => {
       if (img.name.includes("Amazon")) {

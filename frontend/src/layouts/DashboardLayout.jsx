@@ -18,7 +18,7 @@ function DashboardLayout({ user, onLogout }) {
       </header>
       
       <div className="layout-body">
-        <Sidebar />
+        <Sidebar user={user} />
         <main className="layout-content">
           <Outlet />
         </main>

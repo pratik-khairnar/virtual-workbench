@@ -43,7 +43,7 @@ def get_workspaces(
             image_id=workspace.image_id,
             image_name=workspace.image.name,
 
-            developer_id=workspace.assigned_to,
+            developer_id=workspace.developer.email if workspace.developer else None,
 
             provider=workspace.provider,
             selected_tools=workspace.selected_tools,

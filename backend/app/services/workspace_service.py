@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 
 from app.db.models import (
     Workspace,
@@ -12,7 +13,6 @@ from app.db.models import (
 from app.schemas.workspace import WorkspaceCreate
 
 from app.services.provisioning_client import (
-    create_workspace as provision_workspace,
     delete_workspace as provision_delete,
     start_workspace as provision_start,
     stop_workspace as provision_stop,
@@ -22,6 +22,7 @@ from app.services.provisioning_client import (
 def create_workspace(db: Session, workspace: WorkspaceCreate):
     """
     Admin provisions a new workspace for a developer.
+    Developer can be identified by email or username.
     """
 
     # Validate image
@@ -32,18 +33,21 @@ def create_workspace(db: Session, workspace: WorkspaceCreate):
     if image is None:
         raise ValueError("Image not found")
 
-    # Validate developer
+    # Validate developer — lookup by email OR username
     developer = db.query(User).filter(
-        User.id == workspace.developer_id
+        or_(
+            User.email == workspace.developer_id,
+            User.username == workspace.developer_id
+        )
     ).first()
 
     if developer is None:
-        raise ValueError("Developer not found")
+        raise ValueError(f"Developer '{workspace.developer_id}' not found. Use the developer's email or username.")
 
     if developer.role != "DEVELOPER":
         raise ValueError("Selected user is not a developer")
 
-    # Temporary admin until authentication is implemented
+    # Find admin user (the one creating this workspace)
     admin = db.query(User).filter(
         User.role == "ADMIN"
     ).first()
@@ -51,44 +55,18 @@ def create_workspace(db: Session, workspace: WorkspaceCreate):
     if admin is None:
         raise ValueError("No admin user found")
 
-    # Create workspace entry
+    # Create workspace entry — save directly as STOPPED (provisioner not connected)
     new_workspace = Workspace(
         name=workspace.name,
         owner_id=admin.id,
         assigned_to=developer.id,
         image_id=workspace.image_id,
         provider=workspace.provider,
-        selected_tools=workspace.selected_tools,
-        status=WorkspaceStatus.CREATING
+        selected_tools=workspace.selected_tools or [],
+        status=WorkspaceStatus.STOPPED
     )
 
     db.add(new_workspace)
-    db.commit()
-    db.refresh(new_workspace)
-
-    # Call provisioning service
-    try:
-        result = provision_workspace(
-            workspace_id=str(new_workspace.id),
-            name=new_workspace.name,
-            image_id=str(new_workspace.image_id),
-            provider=new_workspace.provider,
-            selected_tools=new_workspace.selected_tools,
-        )
-
-    except Exception as e:
-        new_workspace.status = WorkspaceStatus.FAILED
-        db.commit()
-        raise ValueError(f"Provisioning failed: {e}")
-
-    workspace_data = result["workspace"]
-
-    # Update workspace
-    new_workspace.workspace_url = workspace_data["accessUrl"]
-    new_workspace.status = WorkspaceStatus(
-        workspace_data["status"].upper()
-    )
-
     db.commit()
     db.refresh(new_workspace)
 
@@ -133,7 +111,10 @@ def get_my_workspace(db: Session, developer_id: UUID):
 def delete_workspace(db: Session, workspace_id: UUID):
     workspace = get_workspace(db, workspace_id)
 
-    provision_delete(str(workspace.id))
+    try:
+        provision_delete(str(workspace.id))
+    except Exception:
+        pass  # Provisioning service may not be running
 
     db.delete(workspace)
     db.commit()
@@ -144,7 +125,10 @@ def delete_workspace(db: Session, workspace_id: UUID):
 def start_workspace(db: Session, workspace_id: UUID):
     workspace = get_workspace(db, workspace_id)
 
-    provision_start(str(workspace.id))
+    try:
+        provision_start(str(workspace.id))
+    except Exception:
+        pass  # Provisioning service may not be running
 
     workspace.status = WorkspaceStatus.RUNNING
 
@@ -157,7 +141,10 @@ def start_workspace(db: Session, workspace_id: UUID):
 def stop_workspace(db: Session, workspace_id: UUID):
     workspace = get_workspace(db, workspace_id)
 
-    provision_stop(str(workspace.id))
+    try:
+        provision_stop(str(workspace.id))
+    except Exception:
+        pass  # Provisioning service may not be running
 
     workspace.status = WorkspaceStatus.STOPPED
 

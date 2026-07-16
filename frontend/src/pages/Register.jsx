@@ -10,6 +10,7 @@ function Register() {
     email: '',
     password: '',
     confirmPassword: '',
+    role: 'DEVELOPER',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -22,7 +23,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { username, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword, role } = formData;
 
     if (!username || !email || !password) {
       setError('Please fill in all required fields.');
@@ -44,7 +45,7 @@ function Register() {
     setLoading(true);
 
     try {
-      await register(username, email, password);
+      await register(username, email, password, role);
       setSuccess('Account created successfully! Redirecting to sign in page...');
       setTimeout(() => {
         navigate('/login');
@@ -122,6 +123,31 @@ function Register() {
               required
               disabled={loading}
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="role">User Profile Role <span className="required-star">*</span></label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="form-select"
+              required
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '10px',
+                border: '1px solid var(--portal-border-color)',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                color: 'var(--portal-text-dark)',
+                outline: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="DEVELOPER" style={{ backgroundColor: 'var(--portal-navy)', color: '#fff' }}>Developer (Assigned Workbench Access)</option>
+              <option value="ADMIN" style={{ backgroundColor: 'var(--portal-navy)', color: '#fff' }}>Administrator (Provision & Manage)</option>
+            </select>
           </div>
 
           <button type="submit" className="btn-register-submit" disabled={loading}>

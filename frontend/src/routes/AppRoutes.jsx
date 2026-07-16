@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import DashboardLayout from '../layouts/DashboardLayout';
-import Dashboard from '../pages/Dashboard';
+import AdminDashboard from '../pages/AdminDashboard';
+import DeveloperDashboard from '../pages/DeveloperDashboard';
 import WorkspaceCreate from '../pages/WorkspaceCreate';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import { getCurrentUser } from '../services/workspaceService';
+
+// Redirection component based on role
+function RootRedirect({ user }) {
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role === 'ADMIN') {
+    return <Navigate to="/admin" replace />;
+  }
+  return <Navigate to="/developer" replace />;
+}
 
 function AppRoutes() {
   const [user, setUser] = useState(null);
@@ -80,7 +90,15 @@ function AppRoutes() {
             )
           }
         >
-          <Route path="/" element={<Dashboard user={user} />} />
+          <Route path="/" element={<RootRedirect user={user} />} />
+          <Route 
+            path="/admin" 
+            element={user?.role === 'ADMIN' ? <AdminDashboard user={user} /> : <Navigate to="/" replace />} 
+          />
+          <Route 
+            path="/developer" 
+            element={user?.role === 'DEVELOPER' ? <DeveloperDashboard user={user} /> : <Navigate to="/" replace />} 
+          />
           <Route path="/workspaces/new" element={<WorkspaceCreate user={user} />} />
         </Route>
 

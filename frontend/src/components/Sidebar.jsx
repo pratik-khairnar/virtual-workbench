@@ -2,31 +2,46 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
-function Sidebar() {
+function Sidebar({ user }) {
+  const isAdmin = user?.role === 'ADMIN';
+
   return (
     <aside className="sidebar">
       <div className="sidebar-group">
         <h2 className="sidebar-group-title">Provisioning</h2>
         <ul className="sidebar-list">
-          <li className="sidebar-item">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-              end
-            >
-              <span className="sidebar-bullet"></span>
-              Dashboard
-            </NavLink>
-          </li>
-          <li className="sidebar-item">
-            <NavLink 
-              to="/workspaces/new" 
-              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-            >
-              <span className="sidebar-bullet"></span>
-              Create Workspace
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              <li className="sidebar-item">
+                <NavLink 
+                  to="/admin" 
+                  className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+                >
+                  <span className="sidebar-bullet"></span>
+                  All Workspaces
+                </NavLink>
+              </li>
+              <li className="sidebar-item">
+                <NavLink 
+                  to="/workspaces/new" 
+                  className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+                >
+                  <span className="sidebar-bullet"></span>
+                  Provision Workbench
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <li className="sidebar-item">
+              <NavLink 
+                to="/developer" 
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+              >
+                <span className="sidebar-bullet"></span>
+                My Workbench
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
 
